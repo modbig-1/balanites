@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balanites Lounge — Sip. Vibe. Repeat.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0f; --bg2:#12121a; --card:#17171f; --card2:#1d1d28;
+  --gold:#d4af37; --gold2:#f0c948; --amber:#e8963c;
+  --cream:#f3ede0; --muted:#9b94a6; --line:rgba(212,175,55,.18);
+  --green:#22c55e; --red:#ef4444;
+  --text:#f3ede0; --text-inv:#1a1405;
+  --tb-cream:#f9efe8; --tb-ink:#2a2420;
+  --overlay:rgba(0,0,0,.6);
+  --hero-grad:radial-gradient(ellipse at 50% -10%,rgba(212,175,55,.16),transparent 55%),
+             radial-gradient(ellipse at 90% 110%,rgba(232,150,60,.10),transparent 50%);
+}
+[data-theme="light"]{
+  --bg:#f7f3eb; --bg2:#efe9df; --card:#ffffff; --card2:#f3ede3;
+  --gold:#b8922a; --gold2:#9a7b1a; --amber:#c47a28;
+  --cream:#1a1405; --muted:#6b6570; --line:rgba(184,146,42,.28);
+  --green:#15803d; --red:#dc2626;
+  --text:#1a1405; --text-inv:#f3ede0;
+  --tb-cream:#fff8f0; --tb-ink:#2a2420;
+  --overlay:rgba(20,15,10,.35);
+  --hero-grad:radial-gradient(ellipse at 50% -10%,rgba(212,175,55,.22),transparent 55%),
+             radial-gradient(ellipse at 90% 110%,rgba(232,150,60,.12),transparent 50%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:'Inter',sans-serif;cursor:pointer}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;background:rgba(11,11,15,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;letter-spacing:.14em;color:var(--gold)}
+.logo span{color:var(--cream);font-weight:500;font-size:.85rem;letter-spacing:.3em;display:block;margin-top:-2px}
+.nav-links{display:flex;gap:26px;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+.nav-links a{color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.cart-btn{position:relative;background:linear-gradient(135deg,var(--gold),var(--amber));border:none;color:#1a1405;
+  font-weight:700;padding:9px 18px;border-radius:999px;font-size:.85rem;letter-spacing:.05em}
+.cart-count{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;font-size:.68rem;min-width:19px;height:19px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+.manage-link{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 14px;font-size:.75rem}
+.manage-link:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:120px 20px 80px;position:relative;
+  background:var(--hero-grad),var(--bg)}
+.hero .eyebrow{letter-spacing:.5em;text-transform:uppercase;color:var(--gold);font-size:.78rem;margin-bottom:22px}
+.hero h1{font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:.95;
+  background:linear-gradient(120deg,var(--cream) 20%,var(--gold) 55%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:560px;color:var(--muted);margin:26px auto 38px;font-size:1.05rem;line-height:1.7}
+.hero .btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1a1405;border:none;padding:15px 34px;border-radius:999px;
+  font-weight:700;letter-spacing:.06em;font-size:.92rem;transition:transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(212,175,55,.35)}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid var(--line);padding:15px 34px;border-radius:999px;font-size:.92rem}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-badge{margin-top:44px;display:inline-flex;align-items:center;gap:10px;border:1px dashed rgba(212,175,55,.5);
+  padding:10px 22px;border-radius:999px;font-size:.85rem;color:var(--gold2)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:.75rem;letter-spacing:.3em;animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+/* ---------- TICKER ---------- */
+.ticker{background:linear-gradient(90deg,var(--gold),var(--amber));color:#1a1405;overflow:hidden;padding:11px 0;font-weight:700;
+  font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.ticker-track{display:inline-block;animation:tick 22s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:90px 22px;max-width:1200px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-head .kicker{letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-size:.75rem}
+.sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin-top:10px;font-weight:700}
+.sec-head p{color:var(--muted);margin-top:12px;max-width:520px;margin-left:auto;margin-right:auto}
+
+/* ---------- POSTERS ---------- */
+.posters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.poster{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:26px;transition:transform .25s}
+.poster:hover{transform:translateY(-6px)}
+.poster .p-bg{position:absolute;inset:0;z-index:0}
+.poster .p-bg img{width:100%;height:100%;object-fit:cover}
+.poster .p-fallback{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:.9}
+.poster::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.88));z-index:1}
+.poster .p-info{position:relative;z-index:2}
+.poster .p-day{letter-spacing:.35em;text-transform:uppercase;color:var(--gold2);font-size:.72rem;font-weight:700}
+.poster h3{font-size:1.55rem;margin:6px 0 4px}
+.poster .p-sub{color:#cfc8bb;font-size:.88rem}
+
+/* ---------- CATALOGUE ---------- */
+.cat-filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:36px}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:9px 20px;border-radius:999px;font-size:.82rem;letter-spacing:.05em}
+.chip.active,.chip:hover{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1a1405;border-color:transparent;font-weight:700}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.prod{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+.prod:hover{transform:translateY(-4px);border-color:var(--line)}
+.prod-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.4rem;position:relative}
+.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-cat{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);font-size:.62rem;
+  letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border-radius:999px;color:var(--gold2)}
+.prod-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:8px}
+.prod-name{font-weight:600;font-size:.95rem;line-height:1.35}
+.prod-desc{color:var(--muted);font-size:.78rem;flex:1}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.price{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.15rem;font-weight:700}
+.add-btn{background:rgba(212,175,55,.12);border:1px solid var(--line);color:var(--gold2);border-radius:10px;
+  padding:8px 14px;font-size:.78rem;font-weight:600;transition:all .2s}
+.add-btn:hover{background:var(--gold);color:#1a1405;border-color:transparent}
+.delivery-note{margin-top:34px;text-align:center;border:1px dashed rgba(212,175,55,.4);border-radius:14px;padding:16px;color:var(--muted);font-size:.9rem}
+.delivery-note b{color:var(--gold2)}
+
+/* ---------- GALLERY ---------- */
+.gal-grid{columns:3;column-gap:16px}
+@media(max-width:900px){.gal-grid{columns:2}}
+@media(max-width:560px){.gal-grid{columns:1}}
+.gal-item{break-inside:avoid;margin-bottom:16px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);position:relative}
+.gal-item img{width:100%}
+.gal-fallback{height:220px;display:flex;align-items:center;justify-content:center;font-size:3.6rem}
+.gal-cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);
+  padding:26px 14px 12px;font-size:.82rem;color:#e8e2d4}
+.gal-cap b{color:var(--gold2)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding:60px 22px 30px;background:var(--bg2)}
+.foot-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px}
+.foot-grid h4{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;margin-bottom:14px}
+.foot-grid p,.foot-grid li{color:var(--muted);font-size:.88rem;line-height:1.9;list-style:none}
+.legal{max-width:1200px;margin:40px auto 0;text-align:center;color:#6e6879;font-size:.75rem;border-top:1px solid rgba(255,255,255,.05);padding-top:22px}
+
+/* ---------- CART DRAWER ---------- */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:200;display:none}
+.overlay.open{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);background:var(--bg2);z-index:210;display:flex;flex-direction:column;
+  transform:translateX(105%);transition:transform .3s;border-left:1px solid var(--line)}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:1.3rem}
+.x-btn{background:none;border:none;color:var(--muted);font-size:1.4rem}
+.drawer-body{flex:1;overflow-y:auto;padding:18px 22px}
+.cart-item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:12px;margin-bottom:12px}
+.cart-item .ci-emoji{font-size:1.7rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  background:var(--card2);border-radius:10px;flex-shrink:0;overflow:hidden}
+.cart-item .ci-emoji img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1}
+.ci-name{font-size:.86rem;font-weight:600}
+.ci-price{color:var(--gold2);font-size:.82rem;margin-top:2px}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:none;color:var(--cream);font-size:.95rem}
+.qty span{min-width:20px;text-align:center;font-weight:600;font-size:.9rem}
+.ci-del{background:none;border:none;color:var(--red);font-size:1.05rem;margin-left:6px}
+.empty-cart{text-align:center;color:var(--muted);padding:60px 10px;font-size:.9rem}
+.delivery-box{margin-top:8px;border:1px solid var(--line);border-radius:12px;padding:14px}
+.delivery-box h5{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.radio-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:.87rem;cursor:pointer}
+.radio-row input{margin-top:3px;accent-color:var(--gold)}
+.radio-row .small{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
+.radio-row.disabled{opacity:.45;cursor:not-allowed}
+.unlock-msg{margin-top:8px;font-size:.78rem;color:var(--amber);background:rgba(232,150,60,.1);border-radius:8px;padding:8px 10px}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 22px}
+.total-row{display:flex;justify-content:space-between;font-size:1rem;margin-bottom:6px;color:var(--muted)}
+.total-row.grand{color:var(--cream);font-weight:700;font-size:1.15rem;margin-top:8px}
+.checkout-btn{width:100%;margin-top:14px;background:linear-gradient(135deg,var(--green),#15803d);color:#fff;border:none;
+  padding:15px;border-radius:12px;font-weight:700;font-size:.95rem;letter-spacing:.04em}
+.checkout-btn:disabled{opacity:.4;cursor:not-allowed}
+.mpesa-note{text-align:center;color:var(--muted);font-size:.72rem;margin-top:10px}
+
+/* ---------- TOAST ---------- */
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,90px);background:var(--card2);border:1px solid var(--line);
+  color:var(--cream);padding:12px 22px;border-radius:999px;font-size:.85rem;z-index:400;transition:transform .3s}
+.toast.show{transform:translate(-50%,0)}
+.toast b{color:var(--gold2)}
+
+/* ---------- ADMIN ---------- */
+.modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:18px;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.modal-card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;width:100%;max-width:860px;max-height:92vh;
+  display:flex;flex-direction:column;overflow:hidden}
+.modal-card.small{max-width:420px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+.modal-head h3{font-size:1.25rem;color:var(--gold)}
+.modal-body{padding:20px 22px;overflow-y:auto}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.admin-tabs button{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:999px;font-size:.8rem}
+.admin-tabs button.active{background:var(--gold);color:#1a1405;font-weight:700;border-color:transparent}
+.admin-list{display:flex;flex-direction:column;gap:10px}
+.admin-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:10px 12px}
+.admin-row .thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--card2);
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.admin-row .ar-info{flex:1;min-width:0}
+.admin-row .ar-info b{display:block;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-row .ar-info span{color:var(--muted);font-size:.75rem}
+.ar-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 12px;font-size:.75rem}
+.ar-btn:hover{color:var(--gold);border-color:var(--gold)}
+.ar-btn.danger:hover{color:var(--red);border-color:var(--red)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea,.field select{background:var(--card);border:1px solid rgba(255,255,255,.1);color:var(--cream);
+  border-radius:10px;padding:10px 12px;font-size:.88rem;font-family:'Inter',sans-serif}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+.img-input-row{display:flex;gap:10px;align-items:center}
+.img-input-row input{flex:1}
+.img-preview{width:54px;height:54px;border-radius:10px;object-fit:cover;background:var(--card2);border:1px solid var(--line)}
+.upload-btn{background:var(--card2);border:1px dashed var(--line);color:var(--gold2);border-radius:10px;padding:10px 14px;font-size:.78rem;white-space:nowrap}
+.form-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+.btn-save{background:linear-gradient(135deg,var(--gold),var(--amber));border:none;color:#1a1405;font-weight:700;
+  padding:11px 24px;border-radius:10px;font-size:.85rem}
+.btn-cancel{background:none;border:1px solid var(--line);color:var(--muted);padding:11px 20px;border-radius:10px;font-size:.85rem}
+.reset-btn{width:100%;margin-top:18px;background:none;border:1px dashed rgba(239,68,68,.5);color:var(--red);
+  border-radius:10px;padding:11px;font-size:.82rem}
+.hint{font-size:.75rem;color:var(--muted);margin-top:10px;line-height:1.6}
+.pw-input{width:100%;background:var(--card);border:1px solid rgba(255,255,255,.1);color:var(--cream);border-radius:10px;padding:12px;font-size:.95rem}
+.pw-input:focus{outline:none;border-color:var(--gold)}
+
+/* ---------- AGE GATE ---------- */
+.agegate{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.18),transparent 60%),var(--bg);
+  display:flex;align-items:center;justify-content:center;padding:22px;text-align:center}
+.agegate.hide{display:none}
+.age-card{max-width:440px;width:100%;border:1px solid var(--line);background:var(--bg2);border-radius:20px;padding:38px 28px}
+.age-card h2{font-size:1.9rem;margin:18px 0 10px}
+.age-card p{color:var(--muted);font-size:.9rem;line-height:1.7}
+.age-btns{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.age-denied{display:none;margin-top:18px;color:var(--red);font-size:.88rem}
+.age-card small{display:block;margin-top:22px;color:#6e6879;font-size:.72rem}
+body.locked{overflow:hidden}
+
+/* ---------- STOCK ---------- */
+.prod.oos .prod-img img,.prod.oos .prod-img>div{filter:grayscale(1);opacity:.45}
+.oos-badge{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:999px;z-index:2}
+.add-btn:disabled,.add-btn:disabled:hover{background:rgba(255,255,255,.05);color:var(--muted);border-color:transparent;cursor:not-allowed}
+
+/* ---------- CHECKOUT DETAILS ---------- */
+.cust-box{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:14px}
+.cust-box h5{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.cust-box .field{margin-bottom:10px}
+.field input.invalid,.field select.invalid{border-color:var(--red)}
+.chk-row{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;color:var(--muted);line-height:1.5;cursor:pointer}
+.chk-row input{margin-top:3px;accent-color:var(--gold)}
+.chk-row.invalid{color:var(--red)}
+.field input,.field select{color-scheme:dark}
+.field textarea{resize:vertical;min-height:70px}
+
+/* ---------- RESERVATIONS ---------- */
+.res-wrap{max-width:720px;margin:0 auto}
+.res-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+.res-card .btn-gold{width:100%;margin-top:18px}
+.res-note{text-align:center;color:var(--muted);font-size:.78rem;margin-top:12px}
+
+@media(max-width:760px){
+  section{padding:60px 16px}
+}
+
+/* ---------- CATEGORY TILES + BRAND STRIP ---------- */
+
+/* ---------- PHOTO-BACKED CATEGORY TILES ---------- */
+.tile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:56px}
+.tile{border:none;background:none;color:var(--cream);text-align:center;padding:0;cursor:pointer}
+.tile .t-img{
+  aspect-ratio:3/4;
+  border-radius:18px;
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center 30%;
+  background-color:#1a1a22;
+  border:1px solid var(--line);
+  transition:transform .3s ease, border-color .3s, box-shadow .3s;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+.tile .t-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    rgba(11,11,15,.15) 0%,
+    rgba(11,11,15,.35) 40%,
+    rgba(11,11,15,.88) 100%);
+  z-index:1;
+  transition:background .3s;
+}
+.tile .t-name{
+  position:relative;z-index:2;
+  display:block;
+  width:100%;
+  padding:16px 10px 18px;
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold2);
+  text-shadow:0 2px 12px rgba(0,0,0,.7);
+  margin:0;
+}
+.tile:hover .t-img,.tile.active .t-img{
+  transform:translateY(-6px);
+  border-color:var(--gold);
+  box-shadow:0 14px 36px rgba(212,175,55,.28);
+}
+.tile:hover .t-overlay,.tile.active .t-overlay{
+  background:linear-gradient(180deg,
+    rgba(11,11,15,.05) 0%,
+    rgba(11,11,15,.25) 35%,
+    rgba(11,11,15,.75) 100%);
+}
+.tile.active .t-name{color:#fff}
+@media(max-width:800px){
+  .tile-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .tile .t-name{font-size:.82rem;letter-spacing:.1em;padding:12px 8px 14px}
+}
+
+.brand-head{font-family:'Playfair Display',serif;font-size:1.5rem;margin:0 0 16px;text-align:center}
+.brand-strip{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;margin-bottom:46px}
+.brand-strip::-webkit-scrollbar{height:6px}.brand-strip::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+.brand{flex:0 0 190px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 14px 16px;text-align:center}
+.brand .b-shape{height:120px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:3.6rem;margin-bottom:14px}
+.brand h4{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;margin-bottom:12px}
+.brand button{width:100%;background:var(--cream);color:#111;border:none;border-radius:999px;padding:11px;font-size:.72rem;letter-spacing:.25em;font-weight:700}
+.brand button:hover{background:var(--gold2)}
+@media(max-width:800px){.tile-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- THE-BAR STYLE CARDS ---------- */
+/* tb vars in :root */
+/* photo tiles: old cream override removed */
+.brand-wrap{position:relative}
+.brand-strip{gap:14px;padding:4px 0 18px}
+.brand{flex:0 0 200px;background:var(--tb-cream);border:none;border-radius:22px;padding:14px 12px 16px;color:var(--tb-ink)}
+.brand h4{color:var(--tb-ink);font-size:1.15rem;margin:10px 0 14px}
+.brand button{background:#fff;color:#111;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.brand button:hover{background:var(--gold2)}
+.b-shape{position:relative;overflow:hidden;height:170px!important;background:none!important}
+.b-shape svg{height:92%;width:auto;position:relative;z-index:1}
+.shape{position:absolute;z-index:0}
+.arrow{position:absolute;top:80px;z-index:5;width:40px;height:40px;border-radius:50%;border:none;background:#fff;color:#111;font-size:1.3rem;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.arrow.l{left:-8px}.arrow.r{right:-8px}
+.cat-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.prod2{background:var(--tb-cream);color:var(--tb-ink);border-radius:22px;padding:14px 14px 16px;display:flex;flex-direction:column;text-align:center;position:relative}
+.prod2 .p2-art{position:relative;height:190px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:16px}
+.prod2 .p2-art svg,.prod2 .p2-art img{height:92%;width:auto;position:relative;z-index:1;object-fit:contain}
+.prod2 .p2-cat{position:absolute;top:8px;left:8px;z-index:2;background:rgba(255,255,255,.85);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.prod2 .p2-name{font-family:'Playfair Display',serif;font-size:1.08rem;margin:12px 0 4px;min-height:2.6em;display:flex;align-items:center;justify-content:center;line-height:1.25}
+.prod2 .p2-desc{font-size:.76rem;color:#6d625a;line-height:1.45;min-height:3.2em}
+.prod2 .p2-price{font-weight:700;margin:8px 0 10px;font-size:1rem}
+.prod2 .p2-btn{background:#fff;color:#111;border:none;border-radius:999px;padding:12px;font-size:.72rem;letter-spacing:.25em;font-weight:700;text-transform:uppercase}
+.prod2 .p2-btn:hover{background:var(--gold2)}
+.prod2.oos{opacity:.55}.prod2.oos .p2-btn{background:#ddd;cursor:not-allowed}
+.chip{background:transparent}
+
+.prod2 .p2-art{background:#f9efe8}
+.prod2 .p2-art img{max-height:92%;max-width:90%;object-fit:contain;position:relative;z-index:1}
+.prod2 .p2-art .shape{opacity:.35}
+.brand .b-shape img{max-height:92%;max-width:90%;object-fit:contain;position:relative;z-index:1}
+
+
+/* ---------- SPORTS ---------- */
+.sports-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.sports-tabs button{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:9px 18px;border-radius:999px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.sports-tabs button.active,.sports-tabs button:hover{background:linear-gradient(135deg,var(--gold),var(--amber));color:#1a1405;border-color:transparent;font-weight:700}
+.sports-status{text-align:center;color:var(--muted);font-size:.82rem;margin-bottom:18px;min-height:1.2em}
+.sports-status .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:6px;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.match-list{display:flex;flex-direction:column;gap:12px;max-width:720px;margin:0 auto}
+.match-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;transition:border-color .2s}
+.match-card:hover{border-color:var(--line)}
+.match-card .team{display:flex;align-items:center;gap:10px;min-width:0}
+.match-card .team.home{justify-content:flex-end;text-align:right}
+.match-card .team.away{justify-content:flex-start;text-align:left}
+.match-card .team img{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.match-card .team span{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.match-card .score-box{text-align:center;min-width:72px}
+.match-card .score{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold2);letter-spacing:.04em}
+.match-card .score.ns{color:var(--muted);font-size:.85rem;font-family:'Inter',sans-serif;font-weight:500}
+.match-card .mtime{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.match-card .mtime.live{color:var(--red);font-weight:700}
+.match-card .mtime.ft{color:var(--green)}
+.match-meta{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:4px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05);font-size:.72rem;color:var(--muted)}
+.sports-empty{text-align:center;color:var(--muted);padding:40px 16px;font-size:.9rem}
+.sports-note{text-align:center;color:#6e6879;font-size:.72rem;margin-top:22px}
+@media(max-width:560px){
+  .match-card{padding:14px 12px;gap:6px}
+  .match-card .team span{font-size:.78rem}
+  .match-card .team img{width:22px;height:22px}
+  .match-card .score{font-size:1.15rem}
+}
+
+
+/* ---------- THEME TOGGLE ---------- */
+.theme-btn{background:var(--card);border:1px solid var(--line);color:var(--cream);border-radius:999px;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+  transition:border-color .2s,transform .2s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--gold);transform:scale(1.06)}
+[data-theme="light"] body,
+[data-theme="light"]{color:var(--cream)}
+[data-theme="light"] .hero{
+  background:var(--hero-grad),var(--bg);
+}
+[data-theme="light"] .hero h1{
+  background:linear-gradient(120deg,#1a1405 15%,var(--gold) 55%,var(--amber));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+[data-theme="light"] .ticker{color:#1a1405}
+[data-theme="light"] .btn-gold,[data-theme="light"] .cart-btn,[data-theme="light"] .btn-save{
+  color:#1a1405;
+}
+[data-theme="light"] .prod2{
+  background:var(--tb-cream);color:var(--tb-ink);box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+[data-theme="light"] .prod2 .p2-desc{color:#6d625a}
+[data-theme="light"] .prod2 .p2-btn{background:#fff;color:#111;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+[data-theme="light"] .brand{
+  background:var(--tb-cream);color:var(--tb-ink);box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+[data-theme="light"] .brand h4{color:var(--tb-ink)}
+[data-theme="light"] .brand button{background:#fff;color:#111}
+[data-theme="light"] .match-card{background:var(--card);box-shadow:0 1px 8px rgba(0,0,0,.05)}
+[data-theme="light"] .poster::after{background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.75))}
+[data-theme="light"] .drawer,[data-theme="light"] .modal-card{background:var(--bg2);box-shadow:0 8px 40px rgba(0,0,0,.15)}
+[data-theme="light"] .overlay{background:var(--overlay)}
+[data-theme="light"] .agegate{background:var(--hero-grad),var(--bg)}
+[data-theme="light"] .field input,[data-theme="light"] .field textarea,[data-theme="light"] .field select,
+[data-theme="light"] .pw-input{background:var(--card);color:var(--cream);border-color:rgba(0,0,0,.12)}
+[data-theme="light"] .chip{background:var(--card);color:var(--muted)}
+[data-theme="light"] nav{background:rgba(247,243,235,.9)}
+[data-theme="light"] .toast{background:var(--card2);color:var(--cream);box-shadow:0 4px 20px rgba(0,0,0,.12)}
+[data-theme="light"] .prod2 .p2-na{background:linear-gradient(160deg,#e8e0d4,#d4ccc0)}
+[data-theme="light"] .prod2 .p2-na-label{color:rgba(42,36,32,.45)}
+[data-theme="light"] .legal{color:#8a8494}
+[data-theme="light"] footer{background:var(--bg2)}
+
+
+/* ---------- MENU TRAY ---------- */
+.nav-right{display:flex;align-items:center;gap:10px}
+.menu-btn{background:var(--card);border:1px solid var(--line);color:var(--cream);border-radius:12px;
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .2s}
+.menu-btn:hover{border-color:var(--gold)}
+.menu-bars{display:flex;flex-direction:column;gap:5px;width:18px}
+.menu-bars i{display:block;height:2px;background:var(--cream);border-radius:2px;transition:transform .25s,opacity .25s;transform-origin:center}
+.menu-btn.open .menu-bars i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn.open .menu-bars i:nth-child(2){opacity:0}
+.menu-btn.open .menu-bars i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.menu-overlay{position:fixed;inset:0;background:var(--overlay,rgba(0,0,0,.55));backdrop-filter:blur(3px);z-index:220;opacity:0;pointer-events:none;transition:opacity .25s}
+.menu-overlay.open{opacity:1;pointer-events:auto}
+.menu-tray{position:fixed;top:0;right:0;bottom:0;width:min(340px,88vw);background:var(--bg2);z-index:230;
+  display:flex;flex-direction:column;transform:translateX(105%);transition:transform .3s cubic-bezier(.22,1,.36,1);
+  border-left:1px solid var(--line);box-shadow:-12px 0 40px rgba(0,0,0,.35)}
+.menu-tray.open{transform:translateX(0)}
+.menu-tray-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+.menu-tray-head .logo{font-size:1.2rem}
+.menu-tray-links{display:flex;flex-direction:column;padding:12px 10px;gap:2px;flex:1;overflow-y:auto}
+.menu-tray-links a{padding:14px 16px;border-radius:12px;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);transition:background .15s,color .15s}
+.menu-tray-links a:hover{background:var(--card);color:var(--gold2)}
+.menu-tray-actions{padding:12px 16px 8px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.menu-action{display:flex;align-items:center;gap:12px;width:100%;background:var(--card);border:1px solid var(--line);
+  color:var(--cream);padding:13px 16px;border-radius:12px;font-size:.88rem;text-align:left;transition:border-color .15s}
+.menu-action:hover{border-color:var(--gold);color:var(--gold2)}
+.menu-action span:first-child{font-size:1.15rem;width:1.4em;text-align:center}
+.menu-tray-foot{padding:14px 22px 22px;font-size:.72rem;color:#6e6879;letter-spacing:.08em;text-align:center}
+/* hide old desktop nav-links if any remnant */
+.nav-links{display:none!important}
+
+</style>
+<script>
+(function(){try{var t=localStorage.getItem('balanites_theme_v1');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();
+</script>
+</head>
+<body>
+
+<!-- AGE GATE -->
+<div class="agegate" id="ageGate">
+  <div class="age-card">
+    <div class="logo">BALANITES<span>LOUNGE</span></div>
+    <h2>Are you 18 or older?</h2>
+    <p>You must be of legal drinking age to enter this site. ID is required at the lounge and on delivery.</p>
+    <div class="age-btns">
+      <button class="btn-gold" onclick="ageYes()">Yes, I'm 18+</button>
+      <button class="btn-ghost" onclick="ageNo()">No</button>
+    </div>
+    <div class="age-denied" id="ageDenied">Sorry, you must be 18 or older to view this site.</div>
+    <small>Please drink responsibly.</small>
+  </div>
+</div>
+
+<nav>
+  <a class="logo" href="#home">BALANITES<span>LOUNGE &nbsp;•&nbsp; SIP. VIBE. REPEAT.</span></a>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+      <span class="menu-bars" id="menuBars"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MENU TRAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+<aside class="menu-tray" id="menuTray" aria-hidden="true">
+  <div class="menu-tray-head">
+    <div class="logo">BALANITES<span>MENU</span></div>
+    <button class="x-btn" onclick="closeMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="menu-tray-links">
+    <a href="#posters" onclick="closeMenu()">Posters & Events</a>
+    <a href="#catalogue" onclick="closeMenu()">Catalogue</a>
+    <a href="#sports" onclick="closeMenu()">Sports & Scores</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#reserve" onclick="closeMenu()">Book a Table</a>
+    <a href="#visit" onclick="closeMenu()">Visit Us</a>
+  </nav>
+  <div class="menu-tray-actions">
+    <button class="menu-action" onclick="toggleTheme(); updateMenuThemeLabel()">
+      <span id="menuThemeIcon">🌙</span>
+      <span id="menuThemeLabel">Dark mode</span>
+    </button>
+    <button class="menu-action" onclick="closeMenu(); openAdminGate()">
+      <span>⚙</span>
+      <span>Manage site</span>
+    </button>
+  </div>
+  <div class="menu-tray-foot">Sip. Vibe. Repeat. · 18+</div>
+</aside>
+
+
+<header class="hero" id="home">
+  <div class="eyebrow">Nairobi's Premier Night Lounge</div>
+  <h1>BALANITES</h1>
+  <p>Premium spirits and unforgettable nights. Order from our catalogue and we deliver straight to your door — free on orders above <b style="color:var(--gold2)">KSh 2,000</b>.</p>
+  <div class="btns">
+    <button class="btn-gold" onclick="document.getElementById('catalogue').scrollIntoView()">Browse Catalogue</button>
+    <button class="btn-ghost" onclick="openCart()">Order for Delivery</button>
+    <button class="btn-ghost" onclick="document.getElementById('reserve').scrollIntoView()">Book a Table</button>
+  </div>
+  <div class="hero-badge">🛵 Free home delivery on orders above KSh 2,000 &nbsp;•&nbsp; 18+ only</div>
+  <div class="scroll-hint">▼ SCROLL</div>
+</header>
+
+<div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<section id="posters">
+  <div class="sec-head">
+    <div class="kicker">This Week at Balanites</div>
+    <h2>Posters & Events</h2>
+    <p>Nights you don't want to miss. Updated weekly — check back often.</p>
+  </div>
+  <div class="posters-grid" id="postersGrid"></div>
+</section>
+
+<section id="catalogue">
+  <div class="sec-head">
+    <div class="kicker">Drinks & More</div>
+    <h2>The Catalogue</h2>
+    <p>Curated spirits, wines and beers — delivered in minutes within Nairobi.</p>
+  </div>
+  <div class="tile-grid" id="tileGrid"></div>
+  <h3 class="brand-head">Top Brands</h3>
+  <div class="brand-wrap"><button class="arrow l" onclick="scrollBrands(-1)" aria-label="Previous">‹</button><div class="brand-strip" id="brandStrip"></div><button class="arrow r" onclick="scrollBrands(1)" aria-label="Next">›</button></div>
+  <div class="cat-filters" id="catFilters"></div>
+  <div class="cat-grid" id="catGrid"></div>
+  <div class="delivery-note">🛵 <b>Home delivery is available on all orders above KSh 2,000</b> — no delivery fee. Below that, swing by for pickup at the lounge. 18+ only. Drink responsibly.</div>
+</section>
+
+
+<section id="sports">
+  <div class="sec-head">
+    <div class="kicker">Match Day</div>
+    <h2>Sports & Live Scores</h2>
+    <p>Catch the big games while you sip. Current fixtures from the top leagues — watch here, order at the bar.</p>
+  </div>
+  <div class="sports-tabs" id="sportsTabs"></div>
+  <div class="sports-status" id="sportsStatus">Loading matches…</div>
+  <div class="match-list" id="matchList"></div>
+  <div class="sports-note">Scores via ESPN public feed · Refreshes every 90s · Not for betting · 18+</div>
+</section>
+
+<section id="gallery">
+  <div class="sec-head">
+    <div class="kicker">Moments</div>
+    <h2>Clubbing Gallery</h2>
+    <p>Last weekend was a movie. This weekend will be a blockbuster.</p>
+  </div>
+  <div class="gal-grid" id="galGrid"></div>
+</section>
+
+<section id="reserve">
+  <div class="sec-head">
+    <div class="kicker">Reservations</div>
+    <h2>Book a Table</h2>
+    <p>Send us your request and we'll confirm on WhatsApp.</p>
+  </div>
+  <div class="res-wrap"><div class="res-card">
+    <div class="form-grid">
+      <div class="field"><label>Full name *</label><input id="r_name" autocomplete="name" oninput="setCust('name',this.value);this.classList.remove('invalid')"></div>
+      <div class="field"><label>Phone *</label><input id="r_phone" type="tel" inputmode="tel" placeholder="07XX XXX XXX" autocomplete="tel" oninput="setCust('phone',this.value);this.classList.remove('invalid')"></div>
+      <div class="field"><label>Date *</label><input id="r_date" type="date" oninput="this.classList.remove('invalid')"></div>
+      <div class="field"><label>Time *</label><select id="r_time" onchange="this.classList.remove('invalid')"></select></div>
+      <div class="field"><label>Party size</label><select id="r_party"></select></div>
+      <div class="field"><label>Seating preference</label><select id="r_seat"></select></div>
+      <div class="field full"><label>Occasion / special requests (optional)</label><textarea id="r_notes" placeholder="Birthday, bottle service, bottle service on arrival…"></textarea></div>
+    </div>
+    <button class="btn-gold" onclick="submitReservation()">Request Reservation via WhatsApp →</button>
+    <div class="res-note">Your request is confirmed once we reply on WhatsApp • 18+ only, ID required</div>
+  </div></div>
+</section>
+
+<footer id="visit">
+  <div class="foot-grid">
+    <div>
+      <h4>Balanites Lounge</h4>
+      <p id="footAddress">Kimathi Street, Nairobi CBD</p>
+      <p id="footHours">Open daily • 4 PM — 4 AM</p>
+    </div>
+    <div>
+      <h4>Order & Delivery</h4>
+      <p id="footPhone">Call: 0712 345 678</p>
+      <p>Free delivery on orders above KSh 2,000</p>
+      <p>Pay via M-Pesa on delivery</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <li><a href="#posters">Posters & Events</a></li>
+      <li><a href="#catalogue">Catalogue</a></li>
+      <li><a href="#sports">Sports & Scores</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reserve">Book a Table</a></li>
+      <li><button class="manage-link" style="margin-top:8px" onclick="openAdminGate()">⚙ Edit Site Content</button></li>
+    </div>
+    <div>
+      <h4>House Rules</h4>
+      <p>18+ only • ID required<br>No outside drinks<br>Smart-casual dress code<br>Reservations recommended on weekends</p>
+    </div>
+  </div>
+  <div class="legal">© 2026 Balanites Lounge. All rights reserved. Please drink responsibly. Excessive consumption of alcohol is harmful to your health. Not for sale to persons under 18 years.</div>
+</footer>
+
+<!-- CART -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head"><h3>Your Order 🛒</h3><button class="x-btn" onclick="closeAll()">✕</button></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- ADMIN GATE -->
+<div class="modal" id="gateModal">
+  <div class="modal-card small">
+    <div class="modal-head"><h3>Manager Access</h3><button class="x-btn" onclick="closeModal('gateModal')">✕</button></div>
+    <div class="modal-body">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px">Enter the manager password to edit posters, catalogue and gallery. <i>(Default: <b style="color:var(--gold2)">balanites</b>)</i></p>
+      <input class="pw-input" type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')tryAdminLogin()">
+      <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end">
+        <button class="btn-cancel" onclick="closeModal('gateModal')">Cancel</button>
+        <button class="btn-save" onclick="tryAdminLogin()">Unlock</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="modal" id="adminModal">
+  <div class="modal-card">
+    <div class="modal-head"><h3>⚙ Manage Balanites Content</h3><button class="x-btn" onclick="closeModal('adminModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="admin-tabs" id="adminTabs"></div>
+      <div id="adminContent"></div>
+      <p class="hint">💡 All edits save instantly to this browser — no redeploy needed. For permanent changes across all devices, use the "Export" copy of your data or replace the default values in the site code.</p>
+      <button class="reset-btn" onclick="resetAll()">↺ Reset everything to factory defaults</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+  <div class="modal-card small" style="max-width:560px">
+    <div class="modal-head"><h3 id="editTitle">Edit</h3><button class="x-btn" onclick="closeModal('editModal')">✕</button></div>
+    <div class="modal-body" id="editBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DEFAULT DATA ================= */
+const DEFAULTS = {
+  settings: {
+    password: 'balanites',
+    phone: '0712 345 678',
+    whatsapp: '254712345678',
+    address: 'Kimathi Street, Nairobi CBD',
+    hours: 'Open daily • 4 PM — 4 AM'
+  },
+  posters: [
+    { id:'p1', title:'Afro Vibes Night', day:'Every Friday', sub:'DJ Mzito • 9 PM till late • Free entry before 10', emoji:'🎧', img:'gallery_imgs/g01.jpg' },
+    { id:'p2', title:'Gengetone Riddim', day:'Every Saturday', sub:'The biggest hits, the loudest speakers • KSh 500 entry', emoji:'🔥', img:'gallery_imgs/g06.jpg' },
+    { id:'p3', title:'Smooth Sundays', day:'Every Sunday', sub:'Jazz, whisky tasting & 2-for-1 cocktails • 6 PM', emoji:'🥃', img:'gallery_imgs/g03.jpg' }
+  ],
+  catalogue: [
+    { id:"p000", name:"Kenya Cane Lemon and Ginger 750ml", cat:"Spirits", price:840, desc:"Kenyan favourite — lemon & ginger kick", emoji:"\ud83e\udd43", brand:"Kenya Cane", img:"catalogue_imgs/p000.jpg" },
+    { id:"p001", name:"Kenya Cane Pineapple 750ml", cat:"Spirits", price:840, desc:"Kenya Cane Pineapple 750ml", emoji:"\ud83e\udd43", brand:"Kenya Cane", img:"catalogue_imgs/p001.jpg" },
+    { id:"p002", name:"Kenya Cane 750ml", cat:"Spirits", price:840, desc:"Kenya Cane 750ml", emoji:"\ud83e\udd43", brand:"Kenya Cane", img:"catalogue_imgs/p002.jpg" },
+    { id:"p003", name:"Kenya Cane 350ml", cat:"Spirits", price:440, desc:"Kenya Cane 350ml", emoji:"\ud83e\udd43", brand:"Kenya Cane", img:"catalogue_imgs/p003.jpg" },
+    { id:"p004", name:"Kenya Cane Lemon and Ginger 250ml", cat:"Spirits", price:320, desc:"Kenya Cane Lemon and Ginger 250ml", emoji:"\ud83e\udd43", brand:"Kenya Cane", img:"catalogue_imgs/p004.jpg" },
+    { id:"p005", name:"Captain Morgan Gold 750ml", cat:"Rum", price:1149, desc:"Captain Morgan Gold 750ml", emoji:"\ud83e\udd43", brand:"Captain Morgan", img:"catalogue_imgs/p005.jpg" },
+    { id:"p006", name:"Gilbey's Gin 750ml", cat:"Gin", price:1499, desc:"London dry style, mixer-friendly", emoji:"\ud83c\udf78", brand:"Gilbey's", img:"catalogue_imgs/p006.jpg" },
+    { id:"p007", name:"Gordon's Gin 1L", cat:"Gin", price:2849, desc:"Gordon's Gin 1L", emoji:"\ud83c\udf78", brand:"Gordon's", img:"catalogue_imgs/p007.jpg" },
+    { id:"p008", name:"Gordon's Gin 750ml", cat:"Gin", price:2399, desc:"Gordon's Gin 750ml", emoji:"\ud83c\udf78", brand:"Gordon's", img:"catalogue_imgs/p008.jpg" },
+    { id:"p009", name:"Tanqueray 750ml", cat:"Gin", price:2799, desc:"Citrus-fresh premium gin", emoji:"\ud83c\udf78", brand:"Tanqueray", img:"catalogue_imgs/p009.jpg" },
+    { id:"p010", name:"Chrome Vodka 750ml", cat:"Vodka", price:700, desc:"Chrome Vodka 750ml", emoji:"\ud83c\udf78", brand:"Chrome", img:"catalogue_imgs/p010.jpg" },
+    { id:"p011", name:"Chrome Vodka 250ml", cat:"Vodka", price:260, desc:"Chrome Vodka 250ml", emoji:"\ud83c\udf78", brand:"Chrome", img:"catalogue_imgs/p011.jpg" },
+    { id:"p012", name:"Smirnoff Red 750ml", cat:"Vodka", price:1499, desc:"Smirnoff Red 750ml", emoji:"\ud83c\udf78", brand:"Smirnoff", img:"catalogue_imgs/p012.jpg" },
+    { id:"p013", name:"Smirnoff Red 1L", cat:"Vodka", price:1949, desc:"Smirnoff Red 1L", emoji:"\ud83c\udf78", brand:"Smirnoff", img:"catalogue_imgs/p013.jpg" },
+    { id:"p014", name:"Johnnie Walker Black Label 1L", cat:"Whisky", price:4399, desc:"Johnnie Walker Black Label 1L", emoji:"\ud83e\udd43", brand:"Johnnie Walker", img:"catalogue_imgs/p014.jpg" },
+    { id:"p015", name:"Johnnie Walker Black Label 750ml", cat:"Whisky", price:3799, desc:"Iconic 12-year blended Scotch", emoji:"\ud83e\udd43", brand:"Johnnie Walker", img:"catalogue_imgs/p015.jpg" },
+    { id:"p016", name:"Jack Daniel's 1L", cat:"Whisky", price:3879, desc:"Jack Daniel's 1L", emoji:"\ud83e\udd43", brand:"Jack Daniel's", img:"catalogue_imgs/p016.jpg" },
+    { id:"p017", name:"Jack Daniel's 700ml", cat:"Whisky", price:3349, desc:"Tennessee classic, charcoal mellowed", emoji:"\ud83e\udd43", brand:"Jack Daniel's", img:"catalogue_imgs/p017.jpg" },
+    { id:"p018", name:"Jameson 1L", cat:"Whisky", price:3749, desc:"Jameson 1L", emoji:"\ud83e\udd43", brand:"Jameson", img:"catalogue_imgs/p018.jpg" },
+    { id:"p019", name:"Jameson 750ml", cat:"Whisky", price:2849, desc:"Jameson 750ml", emoji:"\ud83e\udd43", brand:"Jameson", img:"catalogue_imgs/p019.jpg" },
+    { id:"p020", name:"Jose Cuervo Especial Gold 750ml", cat:"Tequila", price:2999, desc:"Jose Cuervo Especial Gold 750ml", emoji:"\ud83e\udd43", brand:"Jose Cuervo", img:"catalogue_imgs/p020.jpg" },
+    { id:"p021", name:"Jose Cuervo Especial Gold 1L", cat:"Tequila", price:3549, desc:"Jose Cuervo Especial Gold 1L", emoji:"\ud83e\udd43", brand:"Jose Cuervo", img:"catalogue_imgs/p021.jpg" },
+    { id:"p022", name:"Jose Cuervo Especial Silver 750ml", cat:"Tequila", price:2999, desc:"Jose Cuervo Especial Silver 750ml", emoji:"\ud83e\udd43", brand:"Jose Cuervo", img:"catalogue_imgs/p022.jpg" },
+    { id:"p023", name:"Don Julio Reposado 750ml", cat:"Tequila", price:8999, desc:"Smooth aged agave — sip or shoot", emoji:"\ud83e\udd43", brand:"Don Julio", img:"catalogue_imgs/p023.jpg" },
+    { id:"p024", name:"J\u00e4germeister 700ml", cat:"Liqueur", price:2749, desc:"J\u00e4germeister 700ml", emoji:"\ud83e\udd43", brand:"J\u00e4germeister", img:"catalogue_imgs/p024.jpg" },
+    { id:"p025", name:"Viceroy Brandy 750ml", cat:"Brandy", price:1559, desc:"Viceroy Brandy 750ml", emoji:"\ud83e\udd43", brand:"Viceroy", img:"catalogue_imgs/p025.jpg" },
+    { id:"p026", name:"Martell VS 70cl", cat:"Brandy", price:5299, desc:"Martell VS 70cl", emoji:"\ud83e\udd43", brand:"Martell", img:"catalogue_imgs/p026.jpg" },
+    { id:"p027", name:"Black & White 750ml", cat:"Whisky", price:1449, desc:"Black & White 750ml", emoji:"\ud83e\udd43", brand:"Black & White", img:"catalogue_imgs/p027.jpg" },
+    { id:"p028", name:"Mucho Mas Black Edition", cat:"Wines", price:1999, desc:"Mucho Mas Black Edition", emoji:"\ud83c\udf77", brand:"Mucho Mas", img:"catalogue_imgs/p028.jpg" },
+    { id:"p029", name:"4th Street Sweet Red", cat:"Wines", price:849, desc:"4th Street Sweet Red", emoji:"\ud83c\udf77", brand:"4th Street", img:"catalogue_imgs/p029.jpg" },
+    { id:"p030", name:"4th Street Sweet White", cat:"Wines", price:1099, desc:"4th Street Sweet White", emoji:"\ud83c\udf77", brand:"4th Street", img:"catalogue_imgs/p030.jpg" },
+    { id:"p031", name:"Drostdy Hof Claret Select", cat:"Wines", price:1149, desc:"Drostdy Hof Claret Select", emoji:"\ud83c\udf77", brand:"Drostdy Hof", img:"catalogue_imgs/p031.jpg" },
+    { id:"p032", name:"Drostdy Hof Premier Grand Cru", cat:"Wines", price:1149, desc:"Drostdy Hof Premier Grand Cru", emoji:"\ud83c\udf77", brand:"Drostdy Hof", img:"catalogue_imgs/p032.jpg" },
+    { id:"p033", name:"Nederburg Merlot", cat:"Wines", price:1699, desc:"Nederburg Merlot", emoji:"\ud83c\udf77", brand:"Nederburg", img:"catalogue_imgs/p033.jpg" },
+    { id:"p034", name:"Nederburg Cabernet Sauvignon", cat:"Wines", price:1699, desc:"Bold berry notes, firm finish", emoji:"\ud83c\udf77", brand:"Nederburg", img:"catalogue_imgs/p034.jpg" },
+    { id:"p035", name:"Nederburg Pinotage", cat:"Wines", price:1699, desc:"Nederburg Pinotage", emoji:"\ud83c\udf77", brand:"Nederburg", img:"catalogue_imgs/p035.jpg" },
+    { id:"p036", name:"Nederburg Cuv\u00e9e Brut", cat:"Wines", price:2199, desc:"Nederburg Cuv\u00e9e Brut", emoji:"\ud83c\udf77", brand:"Nederburg", img:"catalogue_imgs/p036.jpg" },
+    { id:"p037", name:"KWV Classic Chardonnay", cat:"Wines", price:1569, desc:"KWV Classic Chardonnay", emoji:"\ud83c\udf77", brand:"KWV", img:"catalogue_imgs/p037.jpg" },
+    { id:"p038", name:"KWV Cabernet Sauvignon", cat:"Wines", price:1569, desc:"KWV Cabernet Sauvignon", emoji:"\ud83c\udf77", brand:"KWV", img:"catalogue_imgs/p038.jpg" },
+    { id:"p039", name:"Robertson Sweet Red", cat:"Wines", price:1199, desc:"Robertson Sweet Red", emoji:"\ud83c\udf77", brand:"Robertson", img:"catalogue_imgs/p039.jpg" },
+    { id:"p040", name:"Four Cousins Sweet Red", cat:"Wines", price:1149, desc:"South African sweetheart, crowd pleaser", emoji:"\ud83c\udf77", brand:"Four Cousins", img:"catalogue_imgs/p040.jpg" },
+    { id:"p041", name:"Caprice Dry Red", cat:"Wines", price:1149, desc:"Caprice Dry Red", emoji:"\ud83c\udf77", brand:"Caprice", img:"catalogue_imgs/p041.jpg" },
+    { id:"p042", name:"Caprice Sweet Red", cat:"Wines", price:1169, desc:"Caprice Sweet Red", emoji:"\ud83c\udf77", brand:"Caprice", img:"catalogue_imgs/p042.jpg" },
+    { id:"p043", name:"Frontera Merlot", cat:"Wines", price:1399, desc:"Frontera Merlot", emoji:"\ud83c\udf77", brand:"Frontera", img:"catalogue_imgs/p043.jpg" },
+    { id:"p044", name:"Frontera Cabernet Sauvignon", cat:"Wines", price:1399, desc:"Frontera Cabernet Sauvignon", emoji:"\ud83c\udf77", brand:"Frontera", img:"catalogue_imgs/p044.jpg" },
+    { id:"p045", name:"Antares Merlot", cat:"Wines", price:1299, desc:"Antares Merlot", emoji:"\ud83c\udf77", brand:"Antares", img:"catalogue_imgs/p045.jpg" },
+    { id:"p046", name:"Clearwater Cove Sauvignon Blanc", cat:"Wines", price:2159, desc:"Clearwater Cove Sauvignon Blanc", emoji:"\ud83c\udf77", brand:"Clearwater Cove", img:"catalogue_imgs/p046.jpg" },
+    { id:"p047", name:"Donelli Brut Prosecco", cat:"Wines", price:2939, desc:"Donelli Brut Prosecco", emoji:"\ud83c\udf7e", brand:"Donelli", img:"catalogue_imgs/p047.jpg" },
+    { id:"p048", name:"Fantinel Spumante Extra Dry Prosecco", cat:"Wines", price:2579, desc:"Fantinel Spumante Extra Dry Prosecco", emoji:"\ud83c\udf7e", brand:"Fantinel", img:"catalogue_imgs/p048.jpg" },
+    { id:"p049", name:"Voga Prosecco", cat:"Wines", price:3529, desc:"Voga Prosecco", emoji:"\ud83c\udf7e", brand:"Voga", img:"catalogue_imgs/p049.jpg" },
+    { id:"p050", name:"Luc Belaire Luxe Ros\u00e9", cat:"Wines", price:5029, desc:"Luc Belaire Luxe Ros\u00e9", emoji:"\ud83c\udf7e", brand:"Luc Belaire", img:"catalogue_imgs/p050.jpg" },
+    { id:"p051", name:"Altar Wine", cat:"Wines", price:1369, desc:"Altar Wine", emoji:"\ud83c\udf77", brand:"", img:"catalogue_imgs/p051.jpg" },
+    { id:"p052", name:"Hesketh Cabernet Sauvignon", cat:"Wines", price:2089, desc:"Hesketh Cabernet Sauvignon", emoji:"\ud83c\udf77", brand:"Hesketh", img:"catalogue_imgs/p052.jpg" },
+    { id:"p053", name:"Yellow Tail Pinot Noir", cat:"Wines", price:1559, desc:"Yellow Tail Pinot Noir", emoji:"\ud83c\udf77", brand:"Yellow Tail", img:"catalogue_imgs/p053.jpg" },
+    { id:"p054", name:"Tusker Lager Can 500ml", cat:"Beer", price:230, desc:"Bia yangu, ngoma yangu", emoji:"\ud83c\udf7a", brand:"Tusker", img:"catalogue_imgs/p054.jpg" },
+    { id:"p055", name:"Tusker Lite Can 500ml", cat:"Beer", price:280, desc:"Tusker Lite Can 500ml", emoji:"\ud83c\udf7a", brand:"Tusker", img:"catalogue_imgs/p055.jpg" },
+    { id:"p056", name:"Tusker Malt Can 500ml", cat:"Beer", price:280, desc:"Tusker Malt Can 500ml", emoji:"\ud83c\udf7a", brand:"Tusker", img:"catalogue_imgs/p056.jpg" },
+    { id:"p057", name:"Tusker Cider Can 500ml", cat:"Cider", price:270, desc:"Tusker Cider Can 500ml", emoji:"\ud83c\udf4f", brand:"Tusker Cider", img:"catalogue_imgs/p057.jpg" },
+    { id:"p058", name:"White Cap Can 500ml", cat:"Beer", price:260, desc:"White Cap Can 500ml", emoji:"\ud83c\udf7a", brand:"White Cap", img:"catalogue_imgs/p058.jpg" },
+    { id:"p059", name:"Balozi Can 500ml", cat:"Beer", price:240, desc:"Balozi Can 500ml", emoji:"\ud83c\udf7a", brand:"Balozi", img:"catalogue_imgs/p059.jpg" },
+    { id:"p060", name:"Pilsner Can 500ml", cat:"Beer", price:230, desc:"Pilsner Can 500ml", emoji:"\ud83c\udf7a", brand:"Pilsner", img:"catalogue_imgs/p060.jpg" },
+    { id:"p061", name:"Guinness Can 500ml", cat:"Beer", price:255, desc:"Guinness Can 500ml", emoji:"\ud83c\udf7a", brand:"Guinness", img:"catalogue_imgs/p061.jpg" },
+    { id:"p062", name:"Heineken Can 500ml", cat:"Beer", price:340, desc:"Heineken Can 500ml", emoji:"\ud83c\udf7a", brand:"Heineken", img:"catalogue_imgs/p062.jpg" },
+    { id:"p063", name:"Heineken Bottle 330ml", cat:"Beer", price:300, desc:"Heineken Bottle 330ml", emoji:"\ud83c\udf7a", brand:"Heineken", img:"catalogue_imgs/p063.jpg" },
+    { id:"p064", name:"Heineken 0.0% 330ml", cat:"Beer", price:280, desc:"Heineken 0.0% 330ml", emoji:"\ud83c\udf7a", brand:"Heineken", img:"catalogue_imgs/p064.jpg" },
+    { id:"p065", name:"Corona Extra 355ml", cat:"Beer", price:329, desc:"Corona Extra 355ml", emoji:"\ud83c\udf7a", brand:"Corona", img:"catalogue_imgs/p065.jpg" },
+    { id:"p066", name:"Savanna Dry Premium Cider", cat:"Cider", price:310, desc:"Savanna Dry Premium Cider", emoji:"\ud83c\udf4f", brand:"Savanna", img:"catalogue_imgs/p066.jpg" },
+    { id:"p067", name:"Savanna Premium Cider Angry Lemon", cat:"Cider", price:340, desc:"Savanna Premium Cider Angry Lemon", emoji:"\ud83c\udf4f", brand:"Savanna", img:"catalogue_imgs/p067.jpg" },
+    { id:"p068", name:"Manyatta Cider Pineapple", cat:"Cider", price:290, desc:"Manyatta Cider Pineapple", emoji:"\ud83c\udf4f", brand:"Manyatta", img:"catalogue_imgs/p068.jpg" },
+    { id:"p069", name:"KO Cider Pineapple", cat:"Cider", price:310, desc:"KO Cider Pineapple", emoji:"\ud83c\udf4f", brand:"KO", img:"catalogue_imgs/p069.jpg" },
+    { id:"p070", name:"Hunter's Dry 330ml", cat:"Cider", price:260, desc:"Hunter's Dry 330ml", emoji:"\ud83c\udf4f", brand:"Hunter's", img:"catalogue_imgs/p070.jpg" },
+    { id:"p071", name:"Desperados Tequila Beer", cat:"Beer", price:340, desc:"Desperados Tequila Beer", emoji:"\ud83c\udf7a", brand:"Desperados", img:"catalogue_imgs/p071.jpg" },
+    { id:"p072", name:"Windhoek Lager 330ml", cat:"Beer", price:240, desc:"Windhoek Lager 330ml", emoji:"\ud83c\udf7a", brand:"Windhoek", img:"catalogue_imgs/p072.jpg" },
+    { id:"p073", name:"Budweiser 330ml", cat:"Beer", price:269, desc:"Budweiser 330ml", emoji:"\ud83c\udf7a", brand:"Budweiser", img:"catalogue_imgs/p073.jpg" },
+    { id:"p074", name:"Jinro Plum Soju", cat:"Soju", price:440, desc:"Jinro Plum Soju", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p074.jpg" },
+    { id:"p075", name:"Jinro Green Grape Soju", cat:"Soju", price:440, desc:"Jinro Green Grape Soju", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p075.jpg" },
+    { id:"p076", name:"Jinro Strawberry Soju", cat:"Soju", price:440, desc:"Jinro Strawberry Soju", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p076.jpg" },
+    { id:"p077", name:"Jinro Peach Soju", cat:"Soju", price:440, desc:"Jinro Peach Soju", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p077.jpg" },
+    { id:"p078", name:"Jinro Soju Lemon", cat:"Soju", price:440, desc:"Jinro Soju Lemon", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p078.jpg" },
+    { id:"p079", name:"Jinro Chamisul Soju", cat:"Soju", price:480, desc:"Jinro Chamisul Soju", emoji:"\ud83c\udf76", brand:"Jinro", img:"catalogue_imgs/p079.jpg" },
+    { id:"p080", name:"Smirnoff Ice Guarana", cat:"Ready to Drink", price:210, desc:"Smirnoff Ice Guarana", emoji:"\ud83c\udf7e", brand:"Smirnoff", img:"catalogue_imgs/p080.jpg" },
+    { id:"p081", name:"Smirnoff Ice Pineapple Punch", cat:"Ready to Drink", price:210, desc:"Smirnoff Ice Pineapple Punch", emoji:"\ud83c\udf7e", brand:"Smirnoff", img:"catalogue_imgs/p081.jpg" },
+    { id:"p082", name:"Smirnoff Ice Black", cat:"Ready to Drink", price:210, desc:"Ready-to-drink vodka cooler", emoji:"\ud83c\udf7e", brand:"Smirnoff", img:"catalogue_imgs/p082.jpg" },
+    { id:"p083", name:"Smirnoff Ice Raspberry", cat:"Ready to Drink", price:210, desc:"Smirnoff Ice Raspberry", emoji:"\ud83c\udf7e", brand:"Smirnoff", img:"catalogue_imgs/p083.jpg" },
+    { id:"p084", name:"Gordon's & Tonic", cat:"Ready to Drink", price:230, desc:"Gordon's & Tonic", emoji:"\ud83c\udf7e", brand:"Gordon's", img:"catalogue_imgs/p084.jpg" },
+    { id:"p085", name:"Gordon's Premium Pink", cat:"Ready to Drink", price:230, desc:"Gordon's Premium Pink", emoji:"\ud83c\udf7e", brand:"Gordon's", img:"catalogue_imgs/p085.jpg" },
+    { id:"x0", name:"Balanites Signature Blended Scotch Whisky", cat:"Whisky", price:2099, desc:"House favourite at Balanites Lounge.", emoji:"\ud83e\udd43", brand:"Balanites", img:"" },
+    { id:"x4", name:"Soda / Tonic / Mixer 300ml", cat:"Mixers", price:150, desc:"Soda / Tonic / Mixer 300ml", emoji:"\ud83e\udd64", brand:"", img:"" },
+    { id:"x5", name:"Red Bull 250ml", cat:"Mixers", price:350, desc:"Red Bull 250ml", emoji:"\ud83e\udd64", brand:"", img:"" }
+  ],
+  gallery: [
+    { id:'g1', cap:'Girls night — selfies & vibes', emoji:'✨', img:'gallery_imgs/g01.jpg' },
+    { id:'g2', cap:'On the floor, phone up, energy high', emoji:'🪩', img:'gallery_imgs/g02.jpg' },
+    { id:'g3', cap:'Signature strawberry cocktail on the pass', emoji:'🍹', img:'gallery_imgs/g03.jpg' },
+    { id:'g4', cap:'Besties mode activated', emoji:'💕', img:'gallery_imgs/g04.jpg' },
+    { id:'g5', cap:'Blow a kiss to the weekend', emoji:'😘', img:'gallery_imgs/g05.jpg' },
+    { id:'g6', cap:'Birthday energy & LED sticks', emoji:'🎂', img:'gallery_imgs/g06.jpg' },
+    { id:'g7', cap:'Cocktail hour — Nairobi nights', emoji:'🍓', img:'gallery_imgs/g08.jpg' },
+    { id:'g8', cap:'Orange blossom specials', emoji:'🍊', img:'gallery_imgs/g09.jpg' },
+    { id:'g9', cap:'Bar lights, late nights', emoji:'🌙', img:'gallery_imgs/g10.jpg' }
+  ]
+};
+
+const STORE_KEY = 'balanites_site_v6';
+const CART_KEY  = 'balanites_cart_v1';
+const DELIVERY_THRESHOLD = 2000;
+
+let store = load(STORE_KEY, DEFAULTS);
+let cart  = load(CART_KEY, {});
+let activeFilter = 'All';
+let adminTab = 'posters';
+const CUST_KEY = 'balanites_cust_v1', AGE_KEY = 'balanites_age_v1';
+let cust = (()=>{ try{ return JSON.parse(localStorage.getItem(CUST_KEY)) || {}; }catch(e){ return {}; } })();
+let fulfil = 'pickup';
+function setCust(k,v){ cust[k]=v; try{ localStorage.setItem(CUST_KEY, JSON.stringify(cust)); }catch(e){} }
+const validPhone = p => /^(?:\+?254|0)?[17]\d{8}$/.test(String(p||'').replace(/[\s-]/g,''));
+
+function load(k, fb){ try{ const v = JSON.parse(localStorage.getItem(k)); return v || structuredClone(fb); }catch(e){ return structuredClone(fb); } }
+function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }
+function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+const fmt = n => 'KSh ' + n.toLocaleString('en-KE');
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg){ const t=$('toast'); t.innerHTML=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2400); }
+function imgBlock(item, cls){
+  if(item.img) return '<img src="'+item.img+'" alt="">';
+  return '<div class="'+cls+'" style="background:linear-gradient(135deg,#2a2135,#3a2a1a)">'+ (item.emoji||'🍸') +'</div>';
+}
+
+/* ================= TICKER ================= */
+(function(){
+  const items = ['FREE HOME DELIVERY ABOVE KSH 2,000','18+ ONLY','M-PESA ON DELIVERY','RESERVE: ' + store.settings.phone,'BALANITES LOUNGE — SIP. VIBE. REPEAT.'];
+  const s = items.map(i=>'&nbsp;&nbsp;✦&nbsp;&nbsp;'+i).join('');
+  $('tickerTrack').innerHTML = s + s;
+})();
+
+/* ================= POSTERS ================= */
+function renderPosters(){
+  $('postersGrid').innerHTML = store.posters.map(p=>`
+    <div class="poster">
+      <div class="p-bg">${p.img?'<img src="'+p.img+'">':'<div class="p-fallback" style="background:linear-gradient(160deg,#241b2e,#4a2f14)">'+ (p.emoji||'🎶') +'</div>'}</div>
+      <div class="p-info">
+        <div class="p-day">${esc(p.day)}</div>
+        <h3>${esc(p.title)}</h3>
+        <div class="p-sub">${esc(p.sub)}</div>
+      </div>
+    </div>`).join('') || '<p style="color:var(--muted)">No posters yet — add some from the admin panel.</p>';
+}
+
+/* ================= CATALOGUE ================= */
+function renderFilters(){
+  const cats = ['All', ...new Set(store.catalogue.map(p=>p.cat))];
+  $('catFilters').innerHTML = cats.map(c=>`<button class="chip ${c===activeFilter?'active':''}" onclick="setFilter('${esc(c)}')">${esc(c)}</button>`).join('');
+}
+function setFilter(c){ activeFilter=c; brandFilter=''; refreshCatalogueUI(); }
+const TILES=[
+  {cat:'Whisky', img:'catalogue_imgs/p015.jpg'},          // JW Black 750
+  {cat:'Beer', img:'catalogue_imgs/p054.jpg'},            // Tusker Lager
+  {cat:'Cider', img:'catalogue_imgs/p057.jpg'},           // Tusker Cider
+  {cat:'Gin', img:'catalogue_imgs/p009.jpg'},             // Tanqueray
+  {cat:'Vodka', img:'catalogue_imgs/p012.jpg'},           // Smirnoff Red
+  {cat:'Tequila', img:'catalogue_imgs/p023.jpg'},         // Don Julio
+  {cat:'Ready to Drink', img:'catalogue_imgs/p082.jpg'},  // Smirnoff Ice Black
+  {cat:'Wines', img:'catalogue_imgs/p034.jpg'},           // Nederburg Cab
+  {cat:'Soju', img:'catalogue_imgs/p074.jpg'},            // Jinro Plum
+  {cat:'Spirits', img:'catalogue_imgs/p000.jpg'}          // Kenya Cane
+];
+const SHAPE_COLORS=['#e5d21f','#d9830f','#e8272b','#2b97a6','#e5d82a','#9bb24a','#7f9bb8','#6b3a3d','#3ea0e0','#d63c3c'];
+const SHAPES=[
+ 'width:62%;aspect-ratio:1;border-radius:50%;',
+ 'width:80%;height:55%;border-radius:55% 45% 60% 40%/60% 50% 50% 40%;transform:rotate(-12deg);',
+ 'width:80%;aspect-ratio:1;clip-path:polygon(0 0,100% 0,50% 100%);top:8%;',
+ 'width:62%;aspect-ratio:1;transform:rotate(45deg);border-radius:8px;',
+ 'width:78%;aspect-ratio:1;clip-path:polygon(0 100%,100% 70%,70% 0);',
+ 'width:62%;aspect-ratio:1;transform:rotate(12deg);border-radius:6px;'];
+const LIQ={Whisky:'#b9661b',Beer:'#d99a1e',Cider:'#e0b030',Gin:'#cfe9e2',Vodka:'#e6eef2',Tequila:'#bcd6e6','Ready to Drink':'#b9bcc4',Liqueur:'#4a2a1c',Wines:'#6b1d2e',Mixers:'#c8d0d6',Spirits:'#c9a050',Soju:'#a8d5a2',Rum:'#b87333',Brandy:'#8b4513'};
+function shapeHTML(i,col){ return '<span class="shape" style="'+SHAPES[i%SHAPES.length]+'background:'+col+'"></span>'; }
+function bottleSVG(p){
+  const c=p.cat, liq=LIQ[c]||'#c9a050', glass='rgba(255,255,255,.55)', st='stroke="rgba(0,0,0,.28)" stroke-width="1.2"';
+  const nm=String(p.brand||p.name||'').toUpperCase().replace(/[^A-Z0-9 ’']/g,'').split(' ').slice(0,2).join(' ').slice(0,16);
+  const lab=(y,h)=>'<rect x="28" y="'+y+'" width="44" height="'+h+'" rx="3" fill="#f6f0e4" '+st+'/><text x="50" y="'+(y+h/2+3)+'" text-anchor="middle" font-family="Playfair Display,serif" font-weight="700" font-size="'+(nm.length>10?5.2:nm.length>8?6.5:8)+'" fill="#2a2420">'+esc(nm)+'</text>';
+  if(c==='Ready to Drink'||p.name.toLowerCase().includes(' ice ')&&c==='Beer')
+    return '<svg viewBox="0 0 100 160"><rect x="27" y="22" width="46" height="124" rx="8" fill="#cfd2d8" '+st+'/><rect x="30" y="16" width="40" height="8" rx="3" fill="#9fa3ab"/><rect x="27" y="62" width="46" height="46" fill="#23252c"/><text x="50" y="89" text-anchor="middle" font-family="Playfair Display,serif" font-weight="700" font-size="9" fill="#fff">'+esc(nm||'ICE')+'</text></svg>';
+  if(c==='Beer'||c==='Cider')
+    return '<svg viewBox="0 0 100 160"><rect x="44" y="6" width="12" height="6" rx="2" fill="#b8860b"/><path d="M45 12h10v34C55 56 70 62 70 76v68a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V76c0-14 15-20 15-30z" fill="'+liq+'" '+st+'/><rect x="30" y="82" width="40" height="44" fill="#f6f0e4"/><text x="50" y="108" text-anchor="middle" font-family="Playfair Display,serif" font-weight="700" font-size="8" fill="#2a2420">'+esc(nm)+'</text></svg>';
+  if(c==='Wines')
+    return '<svg viewBox="0 0 100 160"><rect x="43" y="4" width="14" height="10" fill="#222"/><path d="M44 14h12v46c0 8 12 12 12 24v62a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8V84c0-12 12-16 12-24z" fill="'+liq+'" '+st+'/>'+lab(96,36)+'</svg>';
+  if(c==='Tequila')
+    return '<svg viewBox="0 0 100 160"><circle cx="50" cy="12" r="9" fill="#c9a36a"/><rect x="44" y="18" width="12" height="24" fill="'+glass+'" '+st+'/><circle cx="50" cy="98" r="48" fill="'+liq+'" '+st+'/>'+lab(80,34)+'</svg>';
+  if(c==='Gin')
+    return '<svg viewBox="0 0 100 160"><rect x="41" y="4" width="18" height="10" rx="2" fill="#b9bcc4"/><path d="M42 14h16v26c0 8 20 12 20 28v76a8 8 0 0 1-8 8H30a8 8 0 0 1-8-8V68c0-16 20-20 20-28z" fill="'+liq+'" '+st+'/>'+lab(86,40)+'</svg>';
+  const cap = c==='Vodka'?'#d62828':c==='Whisky'?'#1b1b1f':'#8a6d3b';
+  return '<svg viewBox="0 0 100 160"><rect x="42" y="3" width="16" height="9" rx="2" fill="'+cap+'"/><path d="M43 12h14v26C57 48 78 52 78 70v78a8 8 0 0 1-8 8H30a8 8 0 0 1-8-8V70c0-18 21-22 21-32z" fill="'+liq+'" '+st+'/><rect x="25" y="70" width="50" height="6" fill="rgba(0,0,0,.25)"/>'+lab(84,40)+'</svg>';
+}
+function renderTiles(){
+  $('tileGrid').innerHTML=TILES.map(t=>{
+    const c=t.cat, active=c===activeFilter?'active':'';
+    return `<button class="tile photo-tile ${active}" onclick="pickCat('${c}')">
+      <div class="t-img" style="background-image:url('${t.img}')">
+        <div class="t-overlay"></div>
+        <span class="t-name">Shop ${c}</span>
+      </div>
+    </button>`;
+  }).join('');
+}
+function renderBrands(){
+  const seen=[];store.catalogue.forEach(p=>{if(p.brand&&!seen.includes(p.brand))seen.push(p.brand)});
+  $('brandStrip').innerHTML=seen.map((b,i)=>{const p=store.catalogue.find(x=>x.brand===b);
+    return `<div class="brand"><div class="b-shape">${shapeHTML(i,SHAPE_COLORS[i%SHAPE_COLORS.length])}${p.img?'<img src="'+p.img+'" style="height:92%;position:relative;z-index:1">':bottleSVG(p)}</div><h4>${esc(b)}</h4><button onclick="pickBrand('${esc(b).replace(/&#39;/g,"\\'")}')">SHOP NOW</button></div>`}).join('');
+}
+function scrollBrands(d){ $('brandStrip').scrollBy({left:d*430,behavior:'smooth'}); }
+function pickCat(c){
+  activeFilter = c;
+  brandFilter = '';
+  refreshCatalogueUI();
+  // Scroll straight to the matching inventory
+  const target = $('catGrid') || document.getElementById('catalogue');
+  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function pickBrand(b){ brandFilter=b; activeFilter='All'; refreshCatalogueUI(); $('catGrid').scrollIntoView({behavior:'smooth',block:'start'}); }
+function refreshCatalogueUI(){ renderTiles(); renderFilters(); renderCatalogue(); }
+let brandFilter='';
+
+function renderCatalogue(){
+  const items = store.catalogue.filter(p=>(activeFilter==='All'||p.cat===activeFilter)&&(!brandFilter||p.brand===brandFilter));
+  $('catGrid').innerHTML = items.map((p,i)=>`
+    <div class="prod2 ${p.oos?'oos':''}">
+      <div class="p2-art">${p.img
+        ? '<img src="'+p.img+'" alt="">'
+        : '<div class="p2-na"><span class="p2-emoji">'+(p.emoji||'🍸')+'</span><span class="p2-na-label">Photo N/A</span></div>'
+      }<span class="p2-cat">${esc(p.cat)}</span></div>
+      <div class="p2-name">${esc(p.name)}</div>
+      <div class="p2-desc">${esc(p.desc)}</div>
+      <div class="p2-price">${fmt(p.price)}</div>
+      <button class="p2-btn" ${p.oos?'disabled':''} onclick="addToCart('${p.id}')">${p.oos?'Sold out':'Add to order'}</button>
+    </div>`).join('') || '<p style="color:var(--muted)">Nothing here yet.</p>';
+}
+
+/* ================= GALLERY ================= */
+function renderGallery(){
+  $('galGrid').innerHTML = store.gallery.map(g=>`
+    <div class="gal-item">
+      ${g.img?'<img src="'+g.img+'">':'<div class="gal-fallback" style="background:linear-gradient(160deg,#1f1a2c,#3d2b16)">'+ (g.emoji||'📸') +'</div>'}
+      <div class="gal-cap"><b>Balanites</b> — ${esc(g.cap)}</div>
+    </div>`).join('') || '<p style="color:var(--muted)">No photos yet.</p>';
+}
+
+/* ================= FOOTER ================= */
+function renderFooter(){
+  $('footAddress').textContent = store.settings.address;
+  $('footHours').textContent = store.settings.hours;
+  $('footPhone').textContent = 'Call: ' + store.settings.phone;
+}
+
+/* ================= CART ================= */
+function cartEntries(){ return Object.entries(cart).map(([id,qty])=>({ p: store.catalogue.find(x=>x.id===id), qty })).filter(e=>e.p); }
+function cartTotal(){ return cartEntries().reduce((s,e)=>s+e.p.price*e.qty,0); }
+function addToCart(id){ const p=store.catalogue.find(x=>x.id===id); if(!p||p.oos){ toast('Sorry, that item is sold out'); return; } cart[id]=(cart[id]||0)+1; saveCart(); renderCartUI(); toast('Added <b>'+esc(p.name)+'</b> to order ✓'); }
+function changeQty(id,d){ cart[id]=(cart[id]||0)+d; if(cart[id]<=0) delete cart[id]; saveCart(); renderCartUI(); }
+function removeItem(id){ delete cart[id]; saveCart(); renderCartUI(); }
+
+function renderCartUI(){
+  // drop anything that has since gone out of stock
+  const gone = Object.keys(cart).filter(id=>{ const p=store.catalogue.find(x=>x.id===id); return p && p.oos; });
+  if(gone.length){ gone.forEach(id=>delete cart[id]); saveCart(); toast('Removed sold-out item(s) from your order'); }
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  $('cartCount').textContent = count;
+  const entries = cartEntries();
+  if(!entries.length){
+    $('cartBody').innerHTML = '<div class="empty-cart">🛒<br><br>Your order is empty.<br>Head to the catalogue and grab something nice.</div>';
+    $('cartFoot').innerHTML=''; return;
+  }
+  const total = cartTotal();
+  const canDeliver = total > DELIVERY_THRESHOLD;
+  const remaining = DELIVERY_THRESHOLD + 1 - total;
+  const method = fulfilMethod();
+  const cv = k => esc(cust[k]||'');
+  $('cartBody').innerHTML = entries.map(({p,qty})=>`
+    <div class="cart-item">
+      <div class="ci-emoji">${p.img?'<img src="'+p.img+'">':(p.emoji||'🍸')}</div>
+      <div class="ci-info"><div class="ci-name">${esc(p.name)}</div><div class="ci-price">${fmt(p.price)} × ${qty} = <b>${fmt(p.price*qty)}</b></div></div>
+      <div class="qty">
+        <button onclick="changeQty('${p.id}',-1)">−</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">+</button>
+      </div>
+      <button class="ci-del" onclick="removeItem('${p.id}')">🗑</button>
+    </div>`).join('') + `
+    <div class="delivery-box">
+      <h5>Fulfilment</h5>
+      <label class="radio-row ${canDeliver?'':'disabled'}">
+        <input type="radio" name="fulfil" value="delivery" ${canDeliver?'':'disabled'} ${method==='delivery'?'checked':''} onchange="setFulfil(this.value)">
+        <span>🛵 Home Delivery <span class="small">${canDeliver?'FREE — rider dispatched after M-Pesa confirmation':'Available only on orders above '+fmt(DELIVERY_THRESHOLD)}</span></span>
+      </label>
+      <label class="radio-row">
+        <input type="radio" name="fulfil" value="pickup" ${method==='pickup'?'checked':''} onchange="setFulfil(this.value)">
+        <span>🏠 Pickup at the lounge <span class="small">${esc(store.settings.address)}</span></span>
+      </label>
+      ${canDeliver?'':'<div class="unlock-msg">🔓 Add <b>'+fmt(remaining)+'</b> more to unlock free home delivery</div>'}
+    </div>
+    <div class="cust-box">
+      <h5>Your details</h5>
+      <div class="field"><label>Full name *</label><input id="c_name" autocomplete="name" value="${cv('name')}" oninput="setCust('name',this.value);this.classList.remove('invalid')"></div>
+      <div class="field"><label>Phone (M-Pesa number) *</label><input id="c_phone" type="tel" inputmode="tel" placeholder="07XX XXX XXX" autocomplete="tel" value="${cv('phone')}" oninput="setCust('phone',this.value);this.classList.remove('invalid')"></div>
+      <div id="delFields" style="display:${method==='delivery'?'block':'none'}">
+        <div class="field"><label>Estate / area *</label><input id="c_area" placeholder="e.g. Kilimani, Ngong Rd" value="${cv('area')}" oninput="setCust('area',this.value);this.classList.remove('invalid')"></div>
+        <div class="field"><label>Building / house no. / landmark *</label><input id="c_landmark" placeholder="e.g. Apt 4B, Yaya Centre gate 2" value="${cv('landmark')}" oninput="setCust('landmark',this.value);this.classList.remove('invalid')"></div>
+        <div class="field"><label>Delivery notes (optional)</label><input id="c_notes" placeholder="Call on arrival, gate code…" value="${cv('notes')}" oninput="setCust('notes',this.value)"></div>
+        <label class="chk-row" id="c_idok_row"><input type="checkbox" id="c_idok" ${cust.idok?'checked':''} onchange="setCust('idok',this.checked);this.parentNode.classList.remove('invalid')"><span>I confirm the person receiving this order is 18+ and will show valid ID.</span></label>
+      </div>
+    </div>`;
+  renderCartFoot();
+}
+function setFulfil(v){
+  fulfil = v;
+  const d = $('delFields'); if(d) d.style.display = fulfilMethod()==='delivery' ? 'block' : 'none';
+  renderCartFoot();
+}
+function fulfilMethod(){ return (fulfil==='delivery' && cartTotal()>DELIVERY_THRESHOLD) ? 'delivery' : 'pickup'; }
+function renderCartFoot(){
+  const total = cartTotal();
+  $('cartFoot').innerHTML = `
+    <div class="total-row"><span>Subtotal</span><span>${fmt(total)}</span></div>
+    <div class="total-row"><span>Delivery</span><span style="color:var(--green)">${fulfilMethod()==='delivery'?'FREE 🛵':'—'}</span></div>
+    <div class="total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
+    <button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp →</button>
+    <div class="mpesa-note">Pay via M-Pesa • 18+ only • Please drink responsibly</div>`;
+}
+function markInvalid(ids){
+  ids.forEach(id=>{ const el=$(id); if(!el) return; (id==='c_idok'?$('c_idok_row'):el).classList.add('invalid'); });
+  const first=$(ids[0]); if(first) first.focus();
+  toast('Please complete the highlighted fields');
+}
+function checkout(){
+  const entries = cartEntries(); if(!entries.length) return;
+  const total = cartTotal(); const method = fulfilMethod();
+  const v = k => String(cust[k]||'').trim();
+  const bad = [];
+  if(v('name').length<2) bad.push('c_name');
+  if(!validPhone(v('phone'))) bad.push('c_phone');
+  if(method==='delivery'){
+    if(!v('area')) bad.push('c_area');
+    if(!v('landmark')) bad.push('c_landmark');
+    if(!cust.idok) bad.push('c_idok');
+  }
+  if(bad.length){ markInvalid(bad); return; }
+  const ref = 'BL-' + Date.now().toString(36).slice(-5).toUpperCase();
+  let msg = 'Hello Balanites Lounge! New order '+ref+'\n\n';
+  entries.forEach(({p,qty})=> msg += '• '+qty+' × '+p.name+' — '+fmt(p.price*qty)+'\n');
+  msg += '\nTotal: '+fmt(total)+'\n';
+  msg += 'Payment: M-Pesa\n\n';
+  msg += 'Name: '+v('name')+'\nPhone: '+v('phone')+'\n';
+  if(method==='delivery'){
+    msg += 'Fulfilment: HOME DELIVERY (free)\nArea: '+v('area')+'\nLandmark: '+v('landmark')+'\n';
+    if(v('notes')) msg += 'Notes: '+v('notes')+'\n';
+    msg += 'Recipient is 18+ and will show ID.';
+  } else {
+    msg += 'Fulfilment: PICKUP at the lounge';
+  }
+  window.open('https://wa.me/'+store.settings.whatsapp+'?text='+encodeURIComponent(msg),'_blank');
+  toast('Opening WhatsApp to complete your order 📲');
+}
+
+/* ================= AGE GATE ================= */
+function initAgeGate(){
+  let ok=false; try{ ok = localStorage.getItem(AGE_KEY)==='1'; }catch(e){}
+  if(ok) $('ageGate').classList.add('hide'); else document.body.classList.add('locked');
+}
+function ageYes(){
+  try{ localStorage.setItem(AGE_KEY,'1'); }catch(e){}
+  $('ageGate').classList.add('hide'); document.body.classList.remove('locked');
+}
+function ageNo(){ $('ageDenied').style.display='block'; }
+
+/* ================= RESERVATIONS ================= */
+function renderReserve(){
+  let times='<option value="">Select time</option>';
+  for(let m=16*60; m<=27*60+30; m+=30){
+    const mm=m%1440, h=Math.floor(mm/60), min=mm%60, h12=h%12||12;
+    const label=h12+':'+String(min).padStart(2,'0')+' '+(h<12?'AM':'PM')+(m>=1440?' (after midnight)':'');
+    times+='<option value="'+label+'">'+label+'</option>';
+  }
+  $('r_time').innerHTML=times;
+  const party=[...Array(10)].map((_,i)=>String(i+1)).concat(['11–15','16–20','20+']);
+  $('r_party').innerHTML=party.map((x,i)=>'<option'+(x==='2'?' selected':'')+'>'+x+'</option>').join('');
+  $('r_seat').innerHTML=['Any / no preference','Standard table','VIP booth','Lounge seating'].map(x=>'<option>'+x+'</option>').join('');
+  const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const t=new Date(), mx=new Date(t); mx.setDate(mx.getDate()+90);
+  $('r_date').min=iso(t); $('r_date').max=iso(mx);
+  $('r_name').value=cust.name||''; $('r_phone').value=cust.phone||'';
+}
+function submitReservation(){
+  const g=id=>$(id).value.trim();
+  const bad=[];
+  if(g('r_name').length<2) bad.push('r_name');
+  if(!validPhone(g('r_phone'))) bad.push('r_phone');
+  if(!g('r_date') || g('r_date')<$('r_date').min) bad.push('r_date');
+  if(!g('r_time')) bad.push('r_time');
+  if(bad.length){ bad.forEach(id=>$(id).classList.add('invalid')); $(bad[0]).focus(); toast('Please complete the highlighted fields'); return; }
+  const [y,mo,d]=g('r_date').split('-').map(Number);
+  const dateStr=new Date(y,mo-1,d).toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long'});
+  let msg='Hello Balanites Lounge! I\'d like to reserve a table:\n\n'
+    +'Name: '+g('r_name')+'\nPhone: '+g('r_phone')+'\nDate: '+dateStr+'\nTime: '+g('r_time')
+    +'\nGuests: '+g('r_party')+'\nSeating: '+g('r_seat');
+  if(g('r_notes')) msg+='\nNotes: '+g('r_notes');
+  msg+='\n\nPlease confirm availability. Thank you!';
+  window.open('https://wa.me/'+store.settings.whatsapp+'?text='+encodeURIComponent(msg),'_blank');
+  toast('Opening WhatsApp to send your reservation 📲');
+}
+
+/* ================= DRAWER / MODALS ================= */
+function openCart(){ closeMenu(); renderCartUI(); $('cartDrawer').classList.add('open'); $('overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeAll(){ $('cartDrawer').classList.remove('open'); $('overlay').classList.remove('open'); if(!$('menuTray')||!$('menuTray').classList.contains('open')) document.body.style.overflow=''; }
+function closeModal(id){ $(id).classList.remove('open'); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeAll(); closeMenu(); ['gateModal','adminModal','editModal'].forEach(closeModal); }});
+
+/* ================= ADMIN ================= */
+function openAdminGate(){ $('gateModal').classList.add('open'); setTimeout(()=>$('pwInput').focus(),100); }
+function tryAdminLogin(){
+  if($('pwInput').value === store.settings.password){
+    closeModal('gateModal'); $('pwInput').value=''; openAdmin();
+  } else toast('❌ Wrong password');
+}
+function openAdmin(){ renderAdminTabs(); renderAdminContent(); $('adminModal').classList.add('open'); }
+const TABS = [ ['posters','🎪 Posters'], ['catalogue','🍾 Catalogue'], ['gallery','📸 Gallery'], ['settings','⚙ Settings'] ];
+function renderAdminTabs(){
+  $('adminTabs').innerHTML = TABS.map(([k,l])=>`<button class="${k===adminTab?'active':''}" onclick="adminTab='${k}';renderAdminTabs();renderAdminContent()">${l}</button>`).join('');
+}
+function renderAdminContent(){
+  const c = $('adminContent');
+  if(adminTab==='posters'){
+    c.innerHTML = `<button class="btn-save" style="margin-bottom:14px" onclick="editItem('posters',null)">+ Add Poster</button>
+      <div class="admin-list">${store.posters.map(p=>adminRow('posters',p,p.title,p.day+' — '+p.sub,p)).join('')}</div>`;
+  } else if(adminTab==='catalogue'){
+    c.innerHTML = `<button class="btn-save" style="margin-bottom:14px" onclick="editItem('catalogue',null)">+ Add Product</button>
+      <div class="admin-list">${store.catalogue.map(p=>adminRow('catalogue',p,p.name,fmt(p.price)+' • '+p.cat+(p.oos?' • SOLD OUT':''),p)).join('')}</div>`;
+  } else if(adminTab==='gallery'){
+    c.innerHTML = `<button class="btn-save" style="margin-bottom:14px" onclick="editItem('gallery',null)">+ Add Photo</button>
+      <div class="admin-list">${store.gallery.map(g=>adminRow('gallery',g,g.cap,'Gallery photo',g)).join('')}</div>`;
+  } else {
+    const s = store.settings;
+    c.innerHTML = `<div class="form-grid">
+      <div class="field"><label>Manager Password</label><input id="s_pw" value="${esc(s.password)}"></div>
+      <div class="field"><label>Phone (display)</label><input id="s_phone" value="${esc(s.phone)}"></div>
+      <div class="field"><label>WhatsApp number (country code, no +)</label><input id="s_wa" value="${esc(s.whatsapp)}"></div>
+      <div class="field"><label>Address</label><input id="s_addr" value="${esc(s.address)}"></div>
+      <div class="field full"><label>Opening hours</label><input id="s_hours" value="${esc(s.hours)}"></div>
+    </div>
+    <div class="form-actions"><button class="btn-save" onclick="saveSettings()">Save Settings</button></div>
+    <p class="hint">Delivery rule is fixed by policy: <b style="color:var(--gold2)">home delivery free on orders above KSh 2,000</b>, pickup below that.</p>`;
+  }
+}
+function adminRow(kind,item,title,sub,raw){
+  const thumb = raw.img ? '<img class="thumb" src="'+raw.img+'">' : '<div class="thumb">'+ (raw.emoji||'🍸') +'</div>';
+  return `<div class="admin-row">${thumb}
+    <div class="ar-info"><b>${esc(title)}</b><span>${esc(sub)}</span></div>
+    ${kind==='catalogue'?`<button class="ar-btn" onclick="toggleStock('${item.id}')">${item.oos?'Back in stock':'Mark sold out'}</button>`:''}
+    <button class="ar-btn" onclick="editItem('${kind}','${item.id}')">Edit</button>
+    <button class="ar-btn danger" onclick="deleteItem('${kind}','${item.id}')">Delete</button>
+  </div>`;
+}
+function saveSettings(){
+  store.settings.password = $('s_pw').value || 'balanites';
+  store.settings.phone = $('s_phone').value;
+  store.settings.whatsapp = $('s_wa').value.replace(/\D/g,'');
+  store.settings.address = $('s_addr').value;
+  store.settings.hours = $('s_hours').value;
+  save(); renderFooter(); toast('Settings saved ✓');
+}
+function toggleStock(id){ const p=store.catalogue.find(x=>x.id===id); if(!p) return; p.oos=!p.oos; save(); renderAdminContent(); refreshSite(); toast(p.oos?'Marked sold out':'Back in stock ✓'); }
+function deleteItem(kind,id){
+  if(!confirm('Delete this item?')) return;
+  store[kind] = store[kind].filter(x=>x.id!==id); save(); renderAdminContent(); refreshSite();
+}
+function editItem(kind,id){
+  const item = id ? store[kind].find(x=>x.id===id) : null;
+  const isNew = !item;
+  const data = item ? JSON.parse(JSON.stringify(item)) : { id: kind[0]+Date.now(), title:'', day:'', sub:'', name:'', cat:'Whisky', price:'', desc:'', cap:'', emoji:'🍸', img:'' };
+  $('editTitle').textContent = (isNew?'Add ':'Edit ') + kind.slice(0,-1);
+  let fields = '';
+  if(kind==='posters') fields = `
+    <div class="field"><label>Event title</label><input id="f_title" value="${esc(data.title)}"></div>
+    <div class="field"><label>Day / frequency</label><input id="f_day" value="${esc(data.day)}" placeholder="Every Friday"></div>
+    <div class="field full"><label>Subtitle / details</label><input id="f_sub" value="${esc(data.sub)}"></div>`;
+  if(kind==='catalogue') fields = `
+    <div class="field full"><label>Product name</label><input id="f_name" value="${esc(data.name)}"></div>
+    <div class="field"><label>Category</label><select id="f_cat">${['Whisky','Vodka','Gin','Tequila','Rum','Brandy','Spirits','Beer','Cider','Wines','Ready to Drink','Soju','Liqueur','Mixers'].map(c=>`<option ${c===data.cat?'selected':''}>${c}</option>`).join('')}</select></div>
+    <div class="field"><label>Price (KSh)</label><input id="f_price" type="number" min="0" value="${esc(data.price)}"></div>
+    <div class="field full"><label>Description</label><input id="f_desc" value="${esc(data.desc)}"></div>
+    <div class="field full"><label class="chk-row"><input type="checkbox" id="f_oos" ${data.oos?'checked':''}><span>Sold out / unavailable (hides the Add button)</span></label></div>`;
+  if(kind==='gallery') fields = `
+    <div class="field full"><label>Caption</label><input id="f_cap" value="${esc(data.cap)}"></div>`;
+  $('editBody').innerHTML = `<div class="form-grid">
+    ${fields}
+    <div class="field full"><label>Image</label>
+      <div class="img-input-row">
+        <input id="f_img" placeholder="Paste image URL…" value="${esc(data.img)}" oninput="document.getElementById('f_prev').src=this.value||'';document.getElementById('f_prev').style.display=this.value?'block':'none'">
+        <button class="upload-btn" onclick="document.getElementById('f_file').click()">📁 Upload</button>
+        <input type="file" id="f_file" accept="image/*" style="display:none" onchange="uploadImg(this)">
+      </div>
+      <img class="img-preview" id="f_prev" src="${esc(data.img)}" style="${data.img?'':'display:none'};margin-top:8px">
+    </div>
+    <div class="field"><label>Or pick an icon (if no image)</label>
+      <select id="f_emoji">${['🍸','🥃','🍷','🍺','🍾','🥤','💨','🎧','🔥','🪩','✨','🎉','🍹','📸','🎶','🌴'].map(e=>`<option ${e===data.emoji?'selected':''}>${e}</option>`).join('')}</select>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
+    <button class="btn-save" onclick="saveItem('${kind}','${isNew?'':id}')">Save</button>
+  </div>`;
+  $('editModal').classList.add('open');
+}
+function uploadImg(input){
+  const f = input.files[0]; if(!f) return;
+  if(f.size > 1.5*1024*1024 && !confirm('Image is large ('+Math.round(f.size/1024)+'KB). Large images may exceed browser storage. Continue?')) return;
+  const r = new FileReader();
+  r.onload = e => { $('f_img').value = e.target.result; $('f_prev').src = e.target.result; $('f_prev').style.display='block'; };
+  r.readAsDataURL(f);
+}
+function saveItem(kind,id){
+  const g = x => ($(x)?.value ?? '').trim();
+  let data = {};
+  if(kind==='posters') data = { title:g('f_title'), day:g('f_day'), sub:g('f_sub') };
+  if(kind==='catalogue') data = { name:g('f_name'), cat:g('f_cat'), price:parseInt(g('f_price'))||0, desc:g('f_desc') };
+  if(kind==='gallery') data = { cap:g('f_cap') };
+  data.emoji = g('f_emoji'); data.img = g('f_img');
+  if(kind==='catalogue') data.oos = !!$('f_oos')?.checked;
+  if(kind==='catalogue' && !data.name){ toast('Name is required'); return; }
+  if(id){ Object.assign(store[kind].find(x=>x.id===id), data); }
+  else store[kind].push({ id: kind[0]+Date.now(), ...data });
+  save(); closeModal('editModal'); renderAdminContent(); refreshSite();
+  toast('Saved ✓ Your site is updated — no redeploy needed.');
+}
+function resetAll(){
+  if(!confirm('Reset ALL content (posters, catalogue, gallery, settings) to factory defaults?')) return;
+  localStorage.removeItem(STORE_KEY); store = structuredClone(DEFAULTS); save();
+  renderAdminContent(); refreshSite(); toast('Factory defaults restored ↺');
+}
+function refreshSite(){ renderPosters(); renderTiles(); renderBrands(); renderFilters(); renderCatalogue(); renderGallery(); renderFooter(); renderCartUI(); }
+
+
+/* ================= SPORTS ================= */
+const SPORTS_LEAGUES = [
+  { id:'eng.1', label:'EPL', name:'Premier League' },
+  { id:'esp.1', label:'La Liga', name:'La Liga' },
+  { id:'ita.1', label:'Serie A', name:'Serie A' },
+  { id:'eng.fa', label:'FA Cup', name:'FA Cup' },
+  { id:'fifa.world', label:'World Cup', name:'FIFA World Cup' }
+];
+let sportsLeague = 'eng.1';
+let sportsTimer = null;
+
+function initSports(){
+  $('sportsTabs').innerHTML = SPORTS_LEAGUES.map(l=>
+    `<button class="${l.id===sportsLeague?'active':''}" onclick="setSportsLeague('${l.id}')">${l.label}</button>`
+  ).join('');
+  loadSports();
+  if(sportsTimer) clearInterval(sportsTimer);
+  sportsTimer = setInterval(loadSports, 90000);
+}
+
+function setSportsLeague(id){
+  sportsLeague = id;
+  $('sportsTabs').querySelectorAll('button').forEach((b,i)=>{
+    b.classList.toggle('active', SPORTS_LEAGUES[i].id===id);
+  });
+  loadSports();
+}
+
+function loadSports(){
+  const status = $('sportsStatus');
+  const list = $('matchList');
+  if(!list) return;
+  status.innerHTML = 'Loading matches…';
+  const url = 'https://site.api.espn.com/apis/site/v2/sports/soccer/'+sportsLeague+'/scoreboard';
+  fetch(url).then(r=>r.json()).then(data=>{
+    const events = data.events || [];
+    const leagueName = (SPORTS_LEAGUES.find(l=>l.id===sportsLeague)||{}).name || '';
+    if(!events.length){
+      status.textContent = '';
+      list.innerHTML = '<div class="sports-empty">No matches scheduled right now for '+esc(leagueName)+'.<br>Check back on match days.</div>';
+      return;
+    }
+    const hasLive = events.some(e=>{
+      const s = (e.status&&e.status.type&&e.status.type.name)||'';
+      return s==='STATUS_IN_PROGRESS' || s==='STATUS_HALFTIME';
+    });
+    status.innerHTML = hasLive
+      ? '<span class="live-dot"></span>Live matches in progress · '+events.length+' fixture'+(events.length>1?'s':'')
+      : events.length+' fixture'+(events.length>1?'s':'')+' · '+esc(leagueName);
+    list.innerHTML = events.map(ev=>{
+      const comp = (ev.competitions&&ev.competitions[0])||{};
+      const teams = comp.competitors||[];
+      const home = teams.find(t=>t.homeAway==='home') || teams[0] || {};
+      const away = teams.find(t=>t.homeAway==='away') || teams[1] || {};
+      const hName = (home.team&&home.team.displayName)||'TBD';
+      const aName = (away.team&&away.team.displayName)||'TBD';
+      const hLogo = (home.team&&home.team.logo)||'';
+      const aLogo = (away.team&&away.team.logo)||'';
+      const hScore = home.score!=null&&home.score!=='' ? home.score : '–';
+      const aScore = away.score!=null&&away.score!=='' ? away.score : '–';
+      const st = (ev.status&&ev.status.type)||{};
+      const stName = st.name||'';
+      const stDesc = st.detail || st.description || '';
+      let scoreHtml, timeClass='';
+      if(stName==='STATUS_SCHEDULED' || stName==='STATUS_POSTPONED'){
+        const d = new Date(ev.date);
+        const timeStr = d.toLocaleString('en-KE',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+        scoreHtml = '<div class="score ns">vs</div><div class="mtime">'+esc(timeStr)+'</div>';
+      } else {
+        scoreHtml = '<div class="score">'+esc(hScore)+' – '+esc(aScore)+'</div>';
+        if(stName==='STATUS_IN_PROGRESS' || stName==='STATUS_HALFTIME'){
+          timeClass='live';
+          scoreHtml += '<div class="mtime live">'+esc(stDesc||'LIVE')+'</div>';
+        } else {
+          timeClass='ft';
+          scoreHtml += '<div class="mtime ft">'+esc(stDesc||'FT')+'</div>';
+        }
+      }
+      const venue = (comp.venue&&comp.venue.fullName)||'';
+      return '<div class="match-card">'+
+        '<div class="team home">'+(hLogo?'<img src="'+hLogo+'" alt="" loading="lazy">':'')+'<span>'+esc(hName)+'</span></div>'+
+        '<div class="score-box">'+scoreHtml+'</div>'+
+        '<div class="team away">'+(aLogo?'<img src="'+aLogo+'" alt="" loading="lazy">':'')+'<span>'+esc(aName)+'</span></div>'+
+        (venue?'<div class="match-meta"><span>'+esc(venue)+'</span><span>'+esc(leagueName)+'</span></div>':'')+
+      '</div>';
+    }).join('');
+  }).catch(err=>{
+    status.textContent = '';
+    list.innerHTML = '<div class="sports-empty">Could not load scores right now.<br>Check your connection and try again.</div>';
+    console.warn('Sports feed error', err);
+  });
+}
+
+
+/* ================= THEME ================= */
+const THEME_KEY = 'balanites_theme_v1';
+function getTheme(){
+  try{ return localStorage.getItem(THEME_KEY) || 'dark'; }catch(e){ return 'dark'; }
+}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  const btn = $('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '☀️' : '🌙';
+  try{ localStorage.setItem(THEME_KEY, t); }catch(e){}
+  if(typeof updateMenuThemeLabel==='function') updateMenuThemeLabel();
+}
+function toggleTheme(){
+  const next = getTheme() === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+}
+function initTheme(){ applyTheme(getTheme()); }
+
+
+/* ================= MENU TRAY ================= */
+function toggleMenu(){
+  const open = !$('menuTray').classList.contains('open');
+  if(open) openMenu(); else closeMenu();
+}
+function openMenu(){
+  $('menuTray').classList.add('open');
+  $('menuOverlay').classList.add('open');
+  $('menuBtn').classList.add('open');
+  $('menuBtn').setAttribute('aria-expanded','true');
+  $('menuTray').setAttribute('aria-hidden','false');
+  updateMenuThemeLabel();
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu(){
+  $('menuTray').classList.remove('open');
+  $('menuOverlay').classList.remove('open');
+  $('menuBtn').classList.remove('open');
+  $('menuBtn').setAttribute('aria-expanded','false');
+  $('menuTray').setAttribute('aria-hidden','true');
+  // only unlock scroll if cart also closed
+  if(!$('cartDrawer').classList.contains('open')) document.body.style.overflow = '';
+}
+function updateMenuThemeLabel(){
+  const t = getTheme();
+  const icon = $('menuThemeIcon');
+  const label = $('menuThemeLabel');
+  if(icon) icon.textContent = t === 'light' ? '☀️' : '🌙';
+  if(label) label.textContent = t === 'light' ? 'Light mode' : 'Dark mode';
+  // also sync header theme btn if it still exists
+  const btn = $('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '☀️' : '🌙';
+}
+
+/* ================= INIT ================= */
+renderPosters(); renderTiles(); renderBrands(); renderFilters(); renderCatalogue(); renderGallery(); renderFooter(); renderCartUI(); renderReserve(); initAgeGate(); initSports();
+</script>
+</body>
+</html>
